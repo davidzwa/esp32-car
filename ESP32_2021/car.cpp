@@ -43,17 +43,17 @@ void driveBackwards()
     setWheel(d1, d2, false);
 }
 
-void rotateLeft() {
-
-    setWheel(a1, a2, true);
-    setWheel(b1, b2, false);
+void rotateLeft()
+{
+    setWheel(a1, a2, false);
+    setWheel(b1, b2, true);
     setWheel(c1, c2, true);
     setWheel(d1, d2, false);
 }
 
 void rotateRight() {
-    setWheel(a1, a2, false);
-    setWheel(b1, b2, true);
+    setWheel(a1, a2, true);
+    setWheel(b1, b2, false);
     setWheel(c1, c2, false);
     setWheel(d1, d2, true);
 }
