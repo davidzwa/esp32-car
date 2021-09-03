@@ -5,13 +5,15 @@ import keyboard
 # bind all IP
 HOST = '0.0.0.0'
 # Listen on Port
-PORT = 44444
+PORT = 4444
 # Size of receive buffer
 BUFFER_SIZE = 1024
 # Create a TCP/IP socket
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 # Bind the socket to the host and port
 s.bind((HOST, PORT))
+
+lastKeyPressed = None
 
 # Client needs to call once to set this
 client_address = None
@@ -43,8 +45,15 @@ while True:
         print("Awaiting client address")
         new_client = recv_client_address()
         client_address = new_client
+        continue
+
+    keypress = keyboard.read_key()
+    if keypress == lastKeyPressed:
+        print("skipped")
+        lastKeyPressed = None
+        continue
     else:
-        keypress = keyboard.read_key()
+        lastKeyPressed = keypress
         print("Key",  keypress)
         if keypress == "w":
             drive("F")

@@ -7,9 +7,9 @@
 #define WIFILED LED_BUILTIN
 #define __DEBUG__ 1
 const char *udpAddress = "255.255.255.255";
-unsigned int udpPort = 44444; // local port to listen on
-char ssid[] = "Brus";
-char password[] = "Tackle1963"; // "90W01y9^";
+unsigned int udpPort = 4444; // local port to listen on
+char ssid[] = "ssayedee";
+char password[] = "password123"; // "90W01y9^";
 
 WiFiUDP Udp;
 WiFiClient client;
