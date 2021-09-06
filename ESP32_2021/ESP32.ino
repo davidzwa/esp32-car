@@ -9,7 +9,7 @@
 const char *udpAddress = "255.255.255.255";
 unsigned int udpPort = 4444; // local port to listen on
 char ssid[] = "ssayedee";
-char password[] = "password123"; // "90W01y9^";
+char password[] = "password123";
 
 WiFiUDP Udp;
 WiFiClient client;
@@ -49,6 +49,7 @@ void IRAM_ATTR onTimer()
 void initWireless()
 {
     Serial.printf("Connecting to %s ", ssid);
+    WiFi.softAP("ESPsoftAP_01", "password123");
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED)
     {
@@ -93,7 +94,8 @@ void processUdpPacket(byte *packet)
         Serial.println("Right");
         rotateRight();
     }
-    else if (packet[0] == '0') {
+    else if (packet[0] == '0')
+    {
         Serial.println("Stop");
         stop();
     }
@@ -112,8 +114,8 @@ void setup()
     Serial.println("Booting ESP module");
 #endif
 
-    // pinMode(WIFILED, OUTPUT);
-    // digitalWrite(WIFILED, LOW);
+    pinMode(WIFILED, OUTPUT);
+    digitalWrite(WIFILED, LOW);
 
     // Setup timer
     // Use 1st timer of 4 (counted from zero).
@@ -126,40 +128,65 @@ void setup()
     // // Start an alarm
     // timerAlarmEnable(timer);
 
-    initWireless();
+    // initWireless();
     initMotors();
 
 #ifdef __DEBUG__
     Serial.println("Setup done ... ");
 #endif
+
+    digitalWrite(WIFILED, LOW);
+    // delay(1000);
+    // driveForwards();
+    // delay(1000);
+    // driveBackwards();
+    // delay(1000);
+    // rotateLeft();
+    // delay(1000);
+    // rotateRight();
+
+#ifdef __DEBUG__
+    Serial.println("Test done ... ");
+#endif
 }
 
 void loop()
 {
+    // driveForwards();
+    digitalWrite(WIFILED, HIGH);
+    driveForwards();
+    delay(1000);
+    stop();
+    delay(2000);
+    rotateLeft();
+    delay(1000);
+    rotateRight();
+    delay(1000);
+
     //data will be sent to server
-    uint8_t buffer[50] = "hello world";
-    //send hello world to server
-    if (++pingCount % pingModulus == 0)
-    {
-        Serial.println("Pinging");
-        pingCount = 0;
-        Udp.beginPacket(udpAddress, udpPort);
-        Udp.write(buffer, 11);
-        Udp.endPacket();
-        memset(buffer, 0, 50);
-    }
+    // uint8_t buffer[50] = "hello world";
+    // //send hello world to server
+    // if (++pingCount % pingModulus == 0)
+    // {
+    //     Serial.println("Pinging");
+    //     pingCount = 0;
+    //     Udp.beginPacket(udpAddress, udpPort);
+    //     Udp.write(buffer, 11);
+    //     Udp.endPacket();
+    //     memset(buffer, 0, 50);
+    // }
 
-    // processing incoming packet, must be called before reading the buffer
-    Udp.parsePacket();
-    // receive response from server, it will be HELLO WORLD
-    if (Udp.read(buffer, 50) > 0)
-    {
-        // Serial.print("Server to client: ");
-        // Serial.println((char *)buffer);
-        processUdpPacket((byte *)buffer);
-        memset(buffer, 0, 50);
-    }
+    // // processing incoming packet, must be called before reading the buffer
+    // Udp.parsePacket();
+    // // receive response from server, it will be HELLO WORLD
+    // if (Udp.read(buffer, 50) > 0)
+    // {
+    //     // Serial.print("Server to client: ");
+    //     // Serial.println((char *)buffer);
+    //     processUdpPacket((byte *)buffer);
+    //     memset(buffer, 0, 50);
+    // }
 
-    //Wait for 10 milliseconds
-    delay(10);
+    // //Wait for 10 milliseconds
+    // delay(10);
 }

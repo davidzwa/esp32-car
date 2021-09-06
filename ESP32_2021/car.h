@@ -8,7 +8,7 @@
 #define b2 17
 #define c1 16
 #define c2 4
-#define d1 2
+#define d1 14  // changed from pin 2
 #define d2 15
 
 #pragma once
