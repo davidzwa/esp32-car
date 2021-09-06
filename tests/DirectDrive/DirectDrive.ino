@@ -6,7 +6,7 @@ int b1 = 5;
 int b2 = 17;
 int c1 = 16;
 int c2 = 4;
-int d1 = 2;
+int d1 = 14; // Changed from 2 as this was the builtin LED
 int d2 = 15;
 
 void setup()
