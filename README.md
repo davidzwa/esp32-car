@@ -28,4 +28,4 @@ Make sure to enable the port using Windows firewall settings or your unix firewa
 
 ## Get to work!
 
-Feel free to completely change the way you want to communicate with the ESP using WiFi.
+Feel free to completely change the way you want to communicate with the ESP using WiFi. I've added an `archive` folder with code from previous years when an Arduino Mega was connected to an ESP32, but this is just to give you inspiration. Note however that this version used an older ESP32 SDK with respect to UDP, so it will not compile.
